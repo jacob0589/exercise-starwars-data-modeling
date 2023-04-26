@@ -10,44 +10,35 @@ Base = declarative_base()
 
 
 
-#class Gender(str, enum.Enum):
- #   MALE = "male"
-  #  FEMALE = "female"
-
 class People(Base):
     __tablename__ = 'people'
     id = Column(Integer, primary_key=True)
     name = Column(String(250), nullable=False)
-    gender = Column(String(50), nullable=False)
     birthdate = Column(String(250), nullable=False)
+    gender = Column(String(250), nullable=False)
     eyes = Column(String(250), nullable=False)
     height = Column(String(250), nullable=False)
-    pass
 
-class Planet(Base):
-    __tablename__ = 'planet'
-    id = Column(Integer, primary_key=True)
-    name = Column(String(250), nullable=False)
-    surface = Column(String(250), nullable=False)
-    population = Column(String(250), nullable=False)
-    gravity = Column(String(250), nullable=False)
-    weather = Column(String(250), nullable=False)
-    pass
-
-class Vehicle(Base):
-    __tablename__ = 'vehicle'
+class Vehicles(Base):
+    __tablename__ = 'vehicles'
     id = Column(Integer, primary_key=True)
     name = Column(String(250), nullable=False)
     model = Column(String(250), nullable=False)
     length = Column(String(250), nullable=False)
     capacity = Column(String(250), nullable=False)
     cargo = Column(String(250), nullable=False)
-    pass
+
+class Planets(Base):
+    __tablename__ = 'planets'
+    id = Column(Integer, primary_key=True)
+    name = Column(String(250), nullable=False)
+    surface = Column(String(250), nullable=False)
+    population = Column(String(250), nullable=False)
+    gravity = Column(String(250), nullable=False)
+    weather = Column(String(250), nullable=False)
 
 class Favorites(Base):
     __tablename__ = 'favorites'
-    # Here we define columns for the table address.
-    # Notice that each column is also a normal Python instance attribute.
     id = Column(Integer, primary_key=True)
     name = Column(String(250), nullable=False)
     people_id = Column(Integer, ForeignKey('people.id'))
@@ -58,8 +49,6 @@ class Favorites(Base):
 
 class User(Base):
     __tablename__ = 'user'
-    # Here we define columns for the table person
-    # Notice that each column is also a normal Python instance attribute.
     id = Column(Integer, primary_key=True)
     name = Column(String(250), nullable=False)
     lastname = Column(String(250), nullable=False)
@@ -68,17 +57,7 @@ class User(Base):
     favorites_id = Column(Integer, ForeignKey('favorites.id'))
     favorites = relationship("favorites", back_populates="user")
 
+    def to_dict(self):
+        return {}
 
-
-
-## Draw from SQLAlchemy base
 render_er(Base, 'diagram.png')
-
-
-
-
-
-
-
-
-
